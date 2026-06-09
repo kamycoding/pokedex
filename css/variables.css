@@ -1,0 +1,62 @@
+:root {
+  /* Colors */
+  --color-background: #0f172a;
+  --color-background-soft: #1e293b;
+
+  --color-surface: #ffffff;
+  --color-surface-muted: #f8fafc;
+
+  --color-text: #0f172a;
+  --color-text-light: #ffffff;
+  --color-text-muted: #64748b;
+
+  --color-border: #e2e8f0;
+
+  --color-primary: #ef4444;
+  --color-primary-dark: #dc2626;
+
+  --color-overlay: rgba(15, 23, 42, 0.72);
+
+  /* Typography */
+  --font-family-base: "Ubuntu Mono", monospace;
+
+  --font-size-small: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-medium: 1.125rem;
+  --font-size-large: 1.5rem;
+  --font-size-xl: 2rem;
+  --font-size-2xl: 3rem;
+
+  --line-height-base: 1.5;
+  --line-height-tight: 1.1;
+
+  /* Layout */
+  --container-width: 1200px;
+  --container-padding: 16px;
+
+  --section-spacing: 48px;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+
+  /* Border radius */
+  --radius-small: 8px;
+  --radius-medium: 16px;
+  --radius-large: 24px;
+  --radius-pill: 999px;
+
+  /* Shadows */
+  --shadow-card: 0 16px 40px rgba(15, 23, 42, 0.16);
+  --shadow-card-hover: 0 24px 56px rgba(15, 23, 42, 0.24);
+  --shadow-button: 0 8px 20px rgba(239, 68, 68, 0.3);
+
+  /* Transitions */
+  --transition-fast: 160ms ease;
+  --transition-base: 240ms ease;
+}
