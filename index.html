@@ -1,16 +1,124 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pokédex</title>
-</head>
-<body>
-    <header class="header">
-      <div class="header__content">
-        
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Pokédex</title>
+
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/variables.css" />
+    <link rel="stylesheet" href="./css/base.css" />
+    <link rel="stylesheet" href="./css/layout.css" />
+    <link rel="stylesheet" href="./css/components.css" />
+    <link rel="stylesheet" href="./css/pokemon-types.css" />
+
+    <script type="module" src="./js/main.js"></script>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="container site-header__content">
+        <a
+          class="site-header__logo"
+          href="./index.html"
+          aria-label="Go to homepage"
+        >
+          Pokédex
+        </a>
+
+        <form class="search-form" role="search">
+          <label class="sr-only" for="pokemon-search">Search Pokémon</label>
+
+          <input
+            id="pokemon-search"
+            class="search-form__input"
+            data-id="search-input"
+            type="search"
+            placeholder="Search Pokémon"
+            autocomplete="off"
+          />
+
+          <button
+            class="search-form__button"
+            data-id="search-button"
+            type="submit"
+          >
+            Search
+          </button>
+        </form>
       </div>
     </header>
-    <main></main>
-</body>
+
+    <main class="main-content" data-id="content">
+      <section class="hero-section">
+        <div class="container">
+          <h1 class="hero-section__title">Pokédex</h1>
+          <p class="hero-section__text">
+            Discover Pokémon, search by name, and open detailed stats.
+          </p>
+        </div>
+      </section>
+
+      <section class="pokemon-section" aria-labelledby="pokemon-list-title">
+        <div class="container">
+          <h2 id="pokemon-list-title" class="sr-only">Pokémon list</h2>
+
+          <p class="not-found-message" data-id="not-found" hidden>
+            No matching Pokémon found.
+          </p>
+
+          <div class="pokemon-grid" id="pokemon-grid" aria-live="polite"></div>
+
+          <div class="load-more-wrapper">
+            <button
+              class="load-more-button"
+              data-id="load-more-button"
+              type="button"
+            >
+              Load more
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <dialog class="pokemon-dialog" data-id="dialog">
+      <article class="pokemon-dialog__card">
+        <button
+          class="pokemon-dialog__close-button"
+          data-id="close-dialog-button"
+          type="button"
+          aria-label="Close dialog"
+        >
+          ×
+        </button>
+
+        <div
+          class="pokemon-dialog__content"
+          data-id="overlay-pokemon-name"
+        ></div>
+
+        <div class="pokemon-dialog__navigation">
+          <button
+            class="pokemon-dialog__nav-button"
+            data-id="prev-button"
+            type="button"
+            aria-label="Previous Pokémon"
+          >
+            ←
+          </button>
+
+          <button
+            class="pokemon-dialog__nav-button"
+            data-id="next-button"
+            type="button"
+            aria-label="Next Pokémon"
+          >
+            →
+          </button>
+        </div>
+      </article>
+    </dialog>
+  </body>
 </html>
