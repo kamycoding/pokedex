@@ -17,3 +17,10 @@ export const fetchJson = async (url) => {
 
   return response.json();
 };
+
+export const fetchPokemonDetails = async (id) => {
+  const url = getPokemonDetailsUrl(id);
+  const data = await fetchJson(url);
+
+  return data;
+};
