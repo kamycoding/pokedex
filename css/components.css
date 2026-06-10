@@ -70,3 +70,22 @@
   color: var(--color-text-light);
   text-align: center;
 }
+
+@media (max-width: 640px) {
+  .site-header__content {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .site-header__logo {
+    text-align: center;
+  }
+
+  .search-form {
+    width: 100%;
+  }
+
+  .search-form__button {
+    flex-shrink: 0;
+  }
+}
