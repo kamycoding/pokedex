@@ -7,3 +7,13 @@ export const getPokemonListUrl = (limit, offset) => {
 export const getPokemonDetailsUrl = (id) => {
   return `${API_BASE_URL}/pokemon/${id}`;
 };
+
+export const fetchJson = async (url) => {
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch data.");
+  }
+
+  return response.json();
+};
