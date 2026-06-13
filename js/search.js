@@ -51,7 +51,7 @@ const handleSearch = () => {
   }
 
   if (searchValue.length < MIN_SEARCH_LENGTH) {
-    hideNotFoundMessage();
+    resetSearchResults();
 
     return;
   }
