@@ -31,12 +31,14 @@ const renderSearchResults = (filteredPokemon) => {
 
   if (filteredPokemon.length === 0) {
     showNotFoundMessage();
+
+    return;
   }
+
+  hideNotFoundMessage();
 };
 
-const handleSearchSubmit = (event) => {
-  event.preventDefault();
-
+const handleSearch = () => {
   const searchValue = getSearchValue();
 
   if (searchValue.length === 0) {
@@ -46,6 +48,8 @@ const handleSearchSubmit = (event) => {
   }
 
   if (searchValue.length < MIN_SEARCH_LENGTH) {
+    hideNotFoundMessage();
+
     return;
   }
 
@@ -54,14 +58,12 @@ const handleSearchSubmit = (event) => {
   renderSearchResults(filteredPokemon);
 };
 
+const handleSearchSubmit = (event) => {
+  event.preventDefault();
+  handleSearch();
+};
+
 export const initSearch = () => {
   dom.searchForm.addEventListener("submit", handleSearchSubmit);
-
-  dom.searchInput.addEventListener("input", () => {
-    const searchValue = getSearchValue();
-
-    if (searchValue.length === 0) {
-      resetSearchResults();
-    }
-  });
+  dom.searchInput.addEventListener("input", handleSearch);
 };
