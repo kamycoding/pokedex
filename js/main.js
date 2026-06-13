@@ -9,7 +9,12 @@ import {
   setLoadingState,
   state,
 } from "./state.js";
-import { renderPokemonCards, setLoadMoreButtonState } from "./render.js";
+import {
+  renderPokemonCards,
+  setLoadMoreButtonState,
+  setLoadMoreButtonText,
+  showErrorMessage,
+} from "./render.js";
 import { getPokemonId } from "./utils.js";
 
 const fetchPokemonBatchDetails = async (pokemonList) => {
@@ -32,13 +37,32 @@ const getCurrentBatchSize = () => {
   return Math.min(POKEMON_BATCH_SIZE, remainingPokemonCount);
 };
 
+const startLoading = () => {
+  setLoadingState(true);
+  setLoadMoreButtonState(true);
+  setLoadMoreButtonText("Loading...");
+};
+
+const stopLoading = () => {
+  setLoadingState(false);
+
+  if (hasReachedMaxPokemonCount()) {
+    setLoadMoreButtonState(true);
+    setLoadMoreButtonText("All Pokémon loaded");
+
+    return;
+  }
+
+  setLoadMoreButtonState(false);
+  setLoadMoreButtonText("Load More");
+};
+
 const loadPokemonBatch = async () => {
   if (state.isLoading || hasReachedMaxPokemonCount()) {
     return;
   }
 
-  setLoadingState(true);
-  setLoadMoreButtonState(true);
+  startLoading();
 
   try {
     const currentBatchSize = getCurrentBatchSize();
@@ -60,16 +84,9 @@ const loadPokemonBatch = async () => {
     increaseOffset();
   } catch (error) {
     console.error(error);
+    showErrorMessage();
   } finally {
-    setLoadingState(false);
-
-    if (hasReachedMaxPokemonCount()) {
-      setLoadMoreButtonState(true);
-
-      return;
-    }
-
-    setLoadMoreButtonState(false);
+    stopLoading();
   }
 };
 

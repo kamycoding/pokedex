@@ -32,10 +32,23 @@ export const setLoadMoreButtonState = (isDisabled) => {
   dom.loadMoreButton.disabled = isDisabled;
 };
 
+export const setLoadMoreButtonText = (text) => {
+  dom.loadMoreButton.textContent = text;
+};
+
 export const showLoadMoreButton = () => {
   dom.loadMoreButton.hidden = false;
 };
 
 export const hideLoadMoreButton = () => {
   dom.loadMoreButton.hidden = true;
+};
+
+export const showErrorMessage = () => {
+  dom.notFoundMessage.textContent = "Something went wrong. Please try again.";
+  showNotFoundMessage();
+};
+
+export const resetNotFoundMessage = () => {
+  dom.notFoundMessage.textContent = "No Pokémon found.";
 };

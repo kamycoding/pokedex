@@ -5,6 +5,7 @@ import {
   hideLoadMoreButton,
   hideNotFoundMessage,
   replacePokemonCards,
+  resetNotFoundMessage,
   showLoadMoreButton,
   showNotFoundMessage,
 } from "./render.js";
@@ -20,12 +21,14 @@ const getFilteredPokemon = (searchValue) => {
 };
 
 const resetSearchResults = () => {
+  resetNotFoundMessage();
   hideNotFoundMessage();
   showLoadMoreButton();
   replacePokemonCards(state.pokemonList);
 };
 
 const renderSearchResults = (filteredPokemon) => {
+  resetNotFoundMessage();
   hideLoadMoreButton();
   replacePokemonCards(filteredPokemon);
 

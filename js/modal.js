@@ -16,8 +16,16 @@ const getActivePokemonIndex = () => {
   });
 };
 
+const updateNavigationButtons = () => {
+  const activePokemonIndex = getActivePokemonIndex();
+
+  dom.previousButton.disabled = activePokemonIndex <= 0;
+  dom.nextButton.disabled = activePokemonIndex >= state.pokemonList.length - 1;
+};
+
 const renderDialogContent = (pokemon) => {
   dom.dialogContent.innerHTML = createPokemonDialogTemplate(pokemon);
+  updateNavigationButtons();
 };
 
 export const openPokemonDialog = (pokemonId) => {

@@ -261,3 +261,59 @@
   background-color: rgba(15, 23, 42, 0.7);
   border-radius: var(--radius-pill);
 }
+
+.pokemon-card {
+  border: 0;
+}
+
+.pokemon-card:focus-visible,
+.search-form__input:focus-visible,
+.search-form__button:focus-visible,
+.load-more-button:focus-visible,
+.pokemon-dialog__close:focus-visible,
+.pokemon-dialog__nav-button:focus-visible {
+  outline: 3px solid var(--color-text-light);
+  outline-offset: 3px;
+}
+
+.pokemon-dialog__nav-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.load-more-button[hidden] {
+  display: none;
+}
+
+.not-found-message[hidden] {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .pokemon-card {
+    min-height: 240px;
+    padding: var(--space-4);
+  }
+
+  .pokemon-card__image {
+    width: 120px;
+    height: 120px;
+  }
+
+  .pokemon-dialog {
+    width: min(100% - 24px, 520px);
+  }
+
+  .pokemon-dialog__card {
+    padding: var(--space-6) var(--space-4) var(--space-4);
+  }
+
+  .pokemon-dialog__image {
+    width: 140px;
+    height: 140px;
+  }
+
+  .pokemon-dialog__navigation {
+    flex-direction: column;
+  }
+}
