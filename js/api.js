@@ -18,6 +18,13 @@ export const fetchJson = async (url) => {
   return response.json();
 };
 
+export const fetchPokemonList = async (limit, offset) => {
+  const url = getPokemonListUrl(limit, offset);
+  const data = await fetchJson(url);
+
+  return data;
+};
+
 export const fetchPokemonDetails = async (id) => {
   const url = getPokemonDetailsUrl(id);
   const data = await fetchJson(url);
