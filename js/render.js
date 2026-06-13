@@ -11,6 +11,11 @@ export const renderPokemonCards = (pokemonList) => {
   dom.pokemonGrid.insertAdjacentHTML("beforeend", pokemonCardsTemplate);
 };
 
+export const replacePokemonCards = (pokemonList) => {
+  clearPokemonGrid();
+  renderPokemonCards(pokemonList);
+};
+
 export const clearPokemonGrid = () => {
   dom.pokemonGrid.innerHTML = "";
 };
@@ -25,4 +30,12 @@ export const hideNotFoundMessage = () => {
 
 export const setLoadMoreButtonState = (isDisabled) => {
   dom.loadMoreButton.disabled = isDisabled;
+};
+
+export const showLoadMoreButton = () => {
+  dom.loadMoreButton.hidden = false;
+};
+
+export const hideLoadMoreButton = () => {
+  dom.loadMoreButton.hidden = true;
 };

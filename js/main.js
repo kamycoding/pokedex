@@ -1,5 +1,8 @@
-import { POKEMON_BATCH_SIZE } from "./config.js";
+import { MAX_POKEMON_COUNT, POKEMON_BATCH_SIZE } from "./config.js";
 import { fetchPokemonDetails, fetchPokemonList } from "./api.js";
+import { dom } from "./dom.js";
+import { initPokemonDialog } from "./modal.js";
+import { initSearch } from "./search.js";
 import {
   addPokemonToState,
   increaseOffset,
@@ -19,32 +22,59 @@ const fetchPokemonBatchDetails = async (pokemonList) => {
   return Promise.all(pokemonDetailsPromises);
 };
 
+const hasReachedMaxPokemonCount = () => {
+  return state.offset >= MAX_POKEMON_COUNT;
+};
+
+const getCurrentBatchSize = () => {
+  const remainingPokemonCount = MAX_POKEMON_COUNT - state.offset;
+
+  return Math.min(POKEMON_BATCH_SIZE, remainingPokemonCount);
+};
+
 const loadPokemonBatch = async () => {
-  if (state.isLoading) {
+  if (state.isLoading || hasReachedMaxPokemonCount()) {
     return;
   }
 
   setLoadingState(true);
   setLoadMoreButtonState(true);
 
-  const pokemonListData = await fetchPokemonList(
-    POKEMON_BATCH_SIZE,
-    state.offset,
-  );
+  try {
+    const currentBatchSize = getCurrentBatchSize();
 
-  const pokemonDetailsList = await fetchPokemonBatchDetails(
-    pokemonListData.results,
-  );
+    const pokemonListData = await fetchPokemonList(
+      currentBatchSize,
+      state.offset,
+    );
 
-  pokemonDetailsList.forEach((pokemon) => {
-    addPokemonToState(pokemon);
-  });
+    const pokemonDetailsList = await fetchPokemonBatchDetails(
+      pokemonListData.results,
+    );
 
-  renderPokemonCards(pokemonDetailsList);
-  increaseOffset();
+    pokemonDetailsList.forEach((pokemon) => {
+      addPokemonToState(pokemon);
+    });
 
-  setLoadingState(false);
-  setLoadMoreButtonState(false);
+    renderPokemonCards(pokemonDetailsList);
+    increaseOffset();
+  } catch (error) {
+    console.error(error);
+  } finally {
+    setLoadingState(false);
+
+    if (hasReachedMaxPokemonCount()) {
+      setLoadMoreButtonState(true);
+
+      return;
+    }
+
+    setLoadMoreButtonState(false);
+  }
 };
 
+dom.loadMoreButton.addEventListener("click", loadPokemonBatch);
+
+initPokemonDialog();
+initSearch();
 loadPokemonBatch();
