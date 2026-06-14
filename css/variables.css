@@ -1,34 +1,38 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
 :root {
   /* Colors */
-  --color-background: #0f172a;
-  --color-background-soft: #1e293b;
+  --color-background: #1a1a2e;
+  --color-background-soft: #16213e;
+  --color-background-deep: #0f3460;
 
-  --color-surface: #ffffff;
-  --color-surface-muted: #f8fafc;
+  --color-surface: #16213e;
+  --color-surface-muted: #0f3460;
 
-  --color-text: #0f172a;
+  --color-text: #ffffff;
   --color-text-light: #ffffff;
   --color-text-muted: #64748b;
 
   --color-border: #e2e8f0;
 
-  --color-primary: #ef4444;
-  --color-primary-dark: #dc2626;
+  --color-primary: #e63946;
+  --color-primary-dark: #7b0000;
 
-  --color-overlay: rgba(15, 23, 42, 0.72);
+  --color-overlay: rgba(0, 0, 0, 0.85);
 
   /* Typography */
-  --font-family-base: "Ubuntu Mono", monospace;
+  --font-family-base: "Press Start 2P", monospace;
 
-  --font-size-small: 0.875rem;
-  --font-size-base: 1rem;
-  --font-size-medium: 1.125rem;
-  --font-size-large: 1.5rem;
-  --font-size-xl: 2rem;
-  --font-size-2xl: 3rem;
+  --font-size-tiny: 0.5rem;
+  --font-size-small: 0.625rem;
+  --font-size-base: 0.75rem;
+  --font-size-medium: 0.875rem;
+  --font-size-large: 1rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.75rem;
 
-  --line-height-base: 1.5;
-  --line-height-tight: 1.1;
+  --line-height-base: 1.8;
+  --line-height-tight: 1.2;
 
   /* Layout */
   --container-width: 1440px;
@@ -46,17 +50,21 @@
   --space-7: 48px;
 
   /* Border radius */
-  --radius-small: 8px;
-  --radius-medium: 16px;
-  --radius-large: 24px;
-  --radius-pill: 999px;
+  --radius-small: 0px;
+  --radius-medium: 0px;
+  --radius-large: 0px;
+  --radius-pill: 0px;
 
-  /* Shadows */
-  --shadow-card: 0 16px 40px rgba(15, 23, 42, 0.16);
-  --shadow-card-hover: 0 24px 56px rgba(15, 23, 42, 0.24);
-  --shadow-button: 0 8px 20px rgba(239, 68, 68, 0.3);
+  /* Pixel borders */
+  --border-pixel: 3px solid var(--color-border);
+  --border-pixel-accent: 3px solid var(--color-primary);
+
+  /* Shadows (pixel style) */
+  --shadow-card: 4px 4px 0 var(--color-border);
+  --shadow-card-hover: 2px 2px 0 var(--color-border);
+  --shadow-button: 4px 4px 0 var(--color-primary-dark);
 
   /* Transitions */
-  --transition-fast: 160ms ease;
-  --transition-base: 240ms ease;
+  --transition-fast: 80ms ease;
+  --transition-base: 120ms ease;
 }

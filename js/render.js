@@ -50,5 +50,5 @@ export const showErrorMessage = () => {
 };
 
 export const resetNotFoundMessage = () => {
-  dom.notFoundMessage.textContent = "No Pokémon found.";
+  dom.notFoundMessage.textContent = "No matching Pokémon found.";
 };

@@ -1,5 +1,16 @@
 import { capitalizeText, getPrimaryType } from "./utils.js";
 
+const MAX_STAT_VALUE = 255;
+
+const STAT_LABELS = {
+  hp: "HP",
+  attack: "ATK",
+  defense: "DEF",
+  "special-attack": "SP.ATK",
+  "special-defense": "SP.DEF",
+  speed: "SPD",
+};
+
 const getPokemonImage = (pokemon) => {
   return pokemon.sprites.other["official-artwork"].front_default;
 };
@@ -15,10 +26,19 @@ const createPokemonTypesTemplate = (types) => {
 const createPokemonStatsTemplate = (stats) => {
   return stats
     .map((statInfo) => {
+      const label = STAT_LABELS[statInfo.stat.name] || statInfo.stat.name;
+      const percentage = Math.min(
+        (statInfo.base_stat / MAX_STAT_VALUE) * 100,
+        100,
+      );
+
       return `
         <li class="pokemon-dialog__stat">
-          <span class="pokemon-dialog__stat-name">${statInfo.stat.name}</span>
+          <span class="pokemon-dialog__stat-name">${label}</span>
           <span class="pokemon-dialog__stat-value">${statInfo.base_stat}</span>
+          <div class="pokemon-dialog__stat-bar">
+            <div class="pokemon-dialog__stat-bar-fill" style="width: ${percentage}%"></div>
+          </div>
         </li>
       `;
     })
@@ -33,7 +53,7 @@ export const createPokemonCardTemplate = (pokemon) => {
 
   return `
     <button class="pokemon-card ${primaryType}" data-id="card" data-pokemon-id="${pokemon.id}">
-      <span class="pokemon-card__number">#${pokemon.id}</span>
+      <span class="pokemon-card__number">#${String(pokemon.id).padStart(3, "0")}</span>
       <img class="pokemon-card__image" data-id="card-image" src="${pokemonImage}" alt="${pokemonName}" />
       <h2 class="pokemon-card__name">${pokemonName}</h2>
       <div class="pokemon-card__types">
@@ -52,17 +72,25 @@ export const createPokemonDialogTemplate = (pokemon) => {
 
   return `
     <article class="pokemon-dialog__card ${primaryType}">
-      <span class="pokemon-dialog__number">#${pokemon.id}</span>
+      <span class="pokemon-dialog__number">#${String(pokemon.id).padStart(3, "0")}</span>
       <img class="pokemon-dialog__image" data-id="dialog-image" src="${pokemonImage}" alt="${pokemonName}" />
       <h2 class="pokemon-dialog__name">${pokemonName}</h2>
-
       <div class="pokemon-dialog__types">
         ${pokemonTypes}
       </div>
-
       <ul class="pokemon-dialog__stats">
         ${pokemonStats}
       </ul>
+      <div class="pokemon-dialog__navigation">
+        <button class="pokemon-dialog__nav-button" data-id="prev-button" type="button" aria-label="Previous Pokémon">
+        <img src="./assets/icons/arrow-left-svgrepo-com.svg" alt="" class="nav-icon" />
+        PREV
+        </button>
+        <button class="pokemon-dialog__nav-button" data-id="next-button" type="button" aria-label="Next Pokémon">
+        NEXT
+        <img src="./assets/icons/arrow-right-svgrepo-com.svg" alt="" class="nav-icon" />
+        </button>
+      </div>
     </article>
   `;
 };

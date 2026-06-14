@@ -15,7 +15,10 @@ const getSearchValue = () => {
 };
 
 const getFilteredPokemon = (searchValue) => {
-  return state.pokemonList.filter((pokemon) => {
+  const sourceList =
+    state.allPokemonList.length > 0 ? state.allPokemonList : state.pokemonList;
+
+  return sourceList.filter((pokemon) => {
     return pokemon.name.includes(searchValue);
   });
 };
@@ -34,7 +37,6 @@ const renderSearchResults = (filteredPokemon) => {
 
   if (filteredPokemon.length === 0) {
     showNotFoundMessage();
-
     return;
   }
 
@@ -46,18 +48,15 @@ const handleSearch = () => {
 
   if (searchValue.length === 0) {
     resetSearchResults();
-
     return;
   }
 
   if (searchValue.length < MIN_SEARCH_LENGTH) {
     resetSearchResults();
-
     return;
   }
 
   const filteredPokemon = getFilteredPokemon(searchValue);
-
   renderSearchResults(filteredPokemon);
 };
 

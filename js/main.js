@@ -5,6 +5,7 @@ import { initPokemonDialog } from "./modal.js";
 import { initSearch } from "./search.js";
 import {
   addPokemonToState,
+  addAllPokemonToState,
   increaseOffset,
   setLoadingState,
   state,
@@ -90,8 +91,23 @@ const loadPokemonBatch = async () => {
   }
 };
 
+const loadAllPokemonInBackground = async () => {
+  try {
+    const pokemonListData = await fetchPokemonList(MAX_POKEMON_COUNT, 0);
+
+    const pokemonDetailsList = await fetchPokemonBatchDetails(
+      pokemonListData.results,
+    );
+
+    addAllPokemonToState(pokemonDetailsList);
+  } catch (error) {
+    console.error("Failed to load all Pokémon for search:", error);
+  }
+};
+
 dom.loadMoreButton.addEventListener("click", loadPokemonBatch);
 
 initPokemonDialog();
 initSearch();
 loadPokemonBatch();
+loadAllPokemonInBackground();

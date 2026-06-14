@@ -13,15 +13,20 @@
 }
 
 .hero-section__title {
-  font-size: var(--font-size-2xl);
+  font-size: var(--font-size-xl);
   line-height: var(--line-height-tight);
+  color: var(--color-primary);
+  letter-spacing: 3px;
+  text-shadow: 3px 3px 0 var(--color-primary-dark);
 }
 
 .hero-section__text {
   max-width: 560px;
-  margin: var(--space-3) auto 0;
+  margin: var(--space-5) auto 0;
   color: var(--color-text-muted);
-  font-size: var(--font-size-medium);
+  font-size: var(--font-size-tiny);
+  line-height: 2;
+  letter-spacing: 1px;
 }
 
 .pokemon-section {
@@ -30,8 +35,8 @@
 
 .pokemon-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: var(--space-5);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-6);
 }
 
 .load-more-wrapper {
