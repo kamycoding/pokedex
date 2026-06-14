@@ -8,6 +8,4 @@ export const dom = {
   dialog: document.querySelector('[data-id="dialog"]'),
   dialogContent: document.querySelector('[data-id="overlay-pokemon-name"]'),
   closeDialogButton: document.querySelector('[data-id="close-dialog-button"]'),
-  previousButton: document.querySelector('[data-id="prev-button"]'),
-  nextButton: document.querySelector('[data-id="next-button"]'),
 };

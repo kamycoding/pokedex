@@ -11,6 +11,18 @@ const STAT_LABELS = {
   speed: "SPD",
 };
 
+const ICON_ARROW_LEFT = `
+  <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter">
+    <polyline points="15 18 9 12 15 6"></polyline>
+  </svg>
+`;
+
+const ICON_ARROW_RIGHT = `
+  <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+`;
+
 const getPokemonImage = (pokemon) => {
   return pokemon.sprites.other["official-artwork"].front_default;
 };
@@ -83,12 +95,12 @@ export const createPokemonDialogTemplate = (pokemon) => {
       </ul>
       <div class="pokemon-dialog__navigation">
         <button class="pokemon-dialog__nav-button" data-id="prev-button" type="button" aria-label="Previous Pokémon">
-        <img src="./assets/icons/arrow-left-svgrepo-com.svg" alt="" class="nav-icon" />
-        PREV
+          ${ICON_ARROW_LEFT}
+          PREV
         </button>
         <button class="pokemon-dialog__nav-button" data-id="next-button" type="button" aria-label="Next Pokémon">
-        NEXT
-        <img src="./assets/icons/arrow-right-svgrepo-com.svg" alt="" class="nav-icon" />
+          NEXT
+          ${ICON_ARROW_RIGHT}
         </button>
       </div>
     </article>

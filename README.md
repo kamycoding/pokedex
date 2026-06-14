@@ -1,34 +1,38 @@
 # Pokédex
 
-A responsive Pokédex web application built with **HTML**, **CSS**, and **Vanilla JavaScript**. It fetches data from the public [PokeAPI](https://pokeapi.co/), renders dynamic Pokémon cards, supports live search, and displays detailed Pokémon information in a modal dialog.
+A responsive Pokédex web application built with **HTML**, **CSS**, and **Vanilla JavaScript**. It fetches data from the public [PokeAPI](https://pokeapi.co/), renders dynamic Pokémon cards, supports live search across all 151 Pokémon, and displays detailed stats in a modal dialog with a retro Game Boy pixel art style.
 
 🔗 **Live Demo:** [https://kamycoding.github.io/pokedex/](https://kamycoding.github.io/pokedex/)
+
+---
 
 ## ✨ Features
 
 - Fetch Pokémon data directly from the PokeAPI
-- Render Pokémon cards dynamically from API data
-- Load Pokémon in batches using a **Load More** button
+- Render Pokémon cards dynamically with type-based color borders
+- Load Pokémon in batches of 20 using a **Load More** button
 - Stop loading automatically after the first **151 Pokémon** (Gen I)
+- Load all 151 Pokémon in the background for full search coverage
 - Display loading feedback while data is being fetched
-- View detailed Pokémon info in a dialog/modal
-- Show image, name, ID, types, and base stats
-- Navigate between loaded Pokémon inside the modal with **previous / next** buttons
-- Disable navigation buttons when no Pokémon is available
-- **Live search** triggered after at least 3 characters
-- Reset results when the input drops below 3 characters
-- Friendly **not-found** message when no Pokémon matches
+- View detailed Pokémon info in a modal dialog
+- Show image, name, ID, types, and base stats with **animated progress bars**
+- Navigate between Pokémon inside the modal with **previous / next** buttons
+- Disable navigation buttons at the start and end of the list
+- **Live search** triggered after at least 3 characters — searches all 151 Pokémon
+- Reset results automatically when input drops below 3 characters
+- Friendly not-found message when no Pokémon matches
+- Retro **Game Boy pixel art** design with Press Start 2P font
 - Fully responsive layout for desktop and mobile
-- Clean, modular file structure with separated CSS and JavaScript modules
 
 ---
 
 ## 🛠️ Tech Stack
 
 - **HTML5**
-- **CSS3**
+- **CSS3** — custom properties, clamp, pixel art borders
 - **Vanilla JavaScript** (ES Modules)
 - **PokeAPI** — data source
+- **Press Start 2P** — Google Fonts pixel art typeface
 - **GitHub Pages** — hosting
 
 ---
@@ -38,6 +42,8 @@ A responsive Pokédex web application built with **HTML**, **CSS**, and **Vanill
 ```text
 pokedex/
 ├── assets/
+│   ├── favicon/
+│   └── icons/
 ├── css/
 │   ├── reset.css
 │   ├── variables.css
@@ -70,15 +76,15 @@ The app is organized into focused ES modules, each with a single responsibility:
 | :------------- | :--------------------------------------------------------------------------------- |
 | `config.js`    | Project constants — API base URL, batch size, max Pokémon count, min search length |
 | `api.js`       | Builds API URLs and handles fetch logic                                            |
-| `state.js`     | Holds app state — offset, loading status, and loaded Pokémon                       |
+| `state.js`     | Holds app state — offset, loading status, visible list, and full background list   |
 | `dom.js`       | Centralized DOM element references                                                 |
-| `templates.js` | Generates HTML templates for cards and modal content                               |
+| `templates.js` | Generates HTML templates for cards and modal content including stat bars           |
 | `render.js`    | Handles rendering, UI feedback, and button states                                  |
 | `modal.js`     | Controls dialog open/close and previous/next navigation                            |
-| `search.js`    | Manages live search logic                                                          |
-| `main.js`      | Connects all modules and starts the app                                            |
+| `search.js`    | Manages live search logic across all loaded Pokémon                                |
+| `main.js`      | Connects all modules, starts the app, and triggers background fetch                |
 
-When the page loads, `main.js` initializes the app and requests the first batch of Pokémon through `api.js`. Results are stored in `state.js`, turned into markup by `templates.js`, and painted to the screen by `render.js`. Clicking a card opens the modal via `modal.js`, while typing in the search field hands off to `search.js`.
+On page load, `main.js` fetches the first 20 Pokémon and simultaneously loads all 151 in the background for search. Results are stored in `state.js`, turned into markup by `templates.js`, and painted to the screen by `render.js`. Clicking a card opens the modal via `modal.js`, while typing in the search field hands off to `search.js`.
 
 ---
 
@@ -116,24 +122,22 @@ This project uses the free and open [**PokeAPI**](https://pokeapi.co/) to retrie
 
 ## 📚 What I Learned
 
-This project helped me strengthen several core frontend skills:
-
 - Structuring a Vanilla JavaScript app with **ES Modules** and clear separation of concerns
 - Working with **asynchronous JavaScript** (`fetch`, Promises, `async/await`)
 - Consuming and transforming data from a public **REST API**
 - Managing application **state** without a framework
-- Building **responsive layouts** with reusable CSS variables and components
-- Implementing UX details like loading feedback, live search, and modal navigation
+- Building **responsive pixel art UI** with CSS custom properties and `clamp()`
+- Implementing UX details like loading feedback, live search, modal navigation, and stat progress bars
+- Background data fetching to improve search UX without blocking the UI
 
 ---
 
 ## 🔮 Future Improvements
 
-- Add support for more Pokémon generations beyond the first 151
 - Add filtering by type and sorting options
-- Cache API responses to reduce repeated requests
 - Add favorites with local storage persistence
 - Improve accessibility (keyboard navigation and ARIA attributes)
+- Add support for more Pokémon generations beyond Gen I
 - Add automated tests
 
 ---

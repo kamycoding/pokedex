@@ -355,10 +355,10 @@
 }
 
 .nav-icon {
-  width: 20px;
-  height: 20px;
-  filter: invert(1);
+  width: 18px;
+  height: 18px;
   flex-shrink: 0;
+  stroke: currentColor;
 }
 
 .pokemon-dialog__nav-button:hover:not(:disabled) {
