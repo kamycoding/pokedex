@@ -37,11 +37,14 @@ export const openPokemonDialog = (pokemonId) => {
 
   activePokemonId = pokemon.id;
   renderDialogContent(pokemon);
+  document.body.style.overflow = "hidden";
+
   dom.dialog.showModal();
 };
 
 export const closePokemonDialog = () => {
   dom.dialog.close();
+  document.body.style.overflow = "";
   activePokemonId = null;
 };
 
