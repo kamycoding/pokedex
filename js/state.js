@@ -1,5 +1,3 @@
-import { POKEMON_BATCH_SIZE } from "./config.js";
-
 export const state = {
   offset: 0,
   isLoading: false,
