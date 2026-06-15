@@ -4,6 +4,10 @@ import { createPokemonDialogTemplate } from "./templates.js";
 
 let activePokemonId = null;
 
+const getActiveList = () => {
+  return state.isSearchActive ? state.searchResults : state.pokemonList;
+};
+
 const getPokemonById = (pokemonId) => {
   const sourceList =
     state.allPokemonList.length > 0 ? state.allPokemonList : state.pokemonList;
@@ -12,19 +16,18 @@ const getPokemonById = (pokemonId) => {
 };
 
 const getActivePokemonIndex = () => {
-  return state.pokemonList.findIndex(
-    (pokemon) => pokemon.id === activePokemonId,
-  );
+  return getActiveList().findIndex((pokemon) => pokemon.id === activePokemonId);
 };
 
 const updateNavigationButtons = () => {
+  const activeList = getActiveList();
   const activePokemonIndex = getActivePokemonIndex();
   const prevButton = dom.dialogContent.querySelector('[data-id="prev-button"]');
   const nextButton = dom.dialogContent.querySelector('[data-id="next-button"]');
 
   if (prevButton) prevButton.disabled = activePokemonIndex <= 0;
   if (nextButton)
-    nextButton.disabled = activePokemonIndex >= state.pokemonList.length - 1;
+    nextButton.disabled = activePokemonIndex >= activeList.length - 1;
 };
 
 const renderDialogContent = (pokemon) => {
@@ -61,8 +64,9 @@ export const closePokemonDialog = () => {
 };
 
 const showPreviousPokemon = () => {
+  const activeList = getActiveList();
   const activePokemonIndex = getActivePokemonIndex();
-  const previousPokemon = state.pokemonList[activePokemonIndex - 1];
+  const previousPokemon = activeList[activePokemonIndex - 1];
 
   if (!previousPokemon) {
     return;
@@ -73,8 +77,9 @@ const showPreviousPokemon = () => {
 };
 
 const showNextPokemon = () => {
+  const activeList = getActiveList();
   const activePokemonIndex = getActivePokemonIndex();
-  const nextPokemon = state.pokemonList[activePokemonIndex + 1];
+  const nextPokemon = activeList[activePokemonIndex + 1];
 
   if (!nextPokemon) {
     return;

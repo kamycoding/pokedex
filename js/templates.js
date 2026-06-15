@@ -1,15 +1,5 @@
 import { capitalizeText, getPrimaryType } from "./utils.js";
-
-const MAX_STAT_VALUE = 255;
-
-const STAT_LABELS = {
-  hp: "HP",
-  attack: "ATK",
-  defense: "DEF",
-  "special-attack": "SP.ATK",
-  "special-defense": "SP.DEF",
-  speed: "SPD",
-};
+import { MAX_STAT_VALUE, STAT_LABELS } from "./config.js";
 
 const ICON_ARROW_LEFT = `
   <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter">

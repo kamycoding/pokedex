@@ -1,6 +1,6 @@
 import { MIN_SEARCH_LENGTH } from "./config.js";
 import { dom } from "./dom.js";
-import { state } from "./state.js";
+import { state, setSearchResults, clearSearchResults } from "./state.js";
 import {
   hideLoadMoreButton,
   hideNotFoundMessage,
@@ -24,6 +24,7 @@ const getFilteredPokemon = (searchValue) => {
 };
 
 const resetSearchResults = () => {
+  clearSearchResults();
   resetNotFoundMessage();
   hideNotFoundMessage();
   showLoadMoreButton();
@@ -31,6 +32,7 @@ const resetSearchResults = () => {
 };
 
 const renderSearchResults = (filteredPokemon) => {
+  setSearchResults(filteredPokemon);
   resetNotFoundMessage();
   hideLoadMoreButton();
   replacePokemonCards(filteredPokemon);

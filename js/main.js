@@ -18,24 +18,20 @@ import {
 } from "./render.js";
 import { getPokemonId } from "./utils.js";
 
-const fetchPokemonBatchDetails = async (pokemonList) => {
-  const pokemonDetailsPromises = pokemonList.map((pokemon) => {
-    const pokemonId = getPokemonId(pokemon.url);
-
-    return fetchPokemonDetails(pokemonId);
+const fetchBatchDetails = async (pokemonList) => {
+  const promises = pokemonList.map((pokemon) => {
+    return fetchPokemonDetails(getPokemonId(pokemon.url));
   });
 
-  return Promise.all(pokemonDetailsPromises);
+  return Promise.all(promises);
 };
 
-const hasReachedMaxPokemonCount = () => {
+const hasReachedMax = () => {
   return state.offset >= MAX_POKEMON_COUNT;
 };
 
 const getCurrentBatchSize = () => {
-  const remainingPokemonCount = MAX_POKEMON_COUNT - state.offset;
-
-  return Math.min(POKEMON_BATCH_SIZE, remainingPokemonCount);
+  return Math.min(POKEMON_BATCH_SIZE, MAX_POKEMON_COUNT - state.offset);
 };
 
 const startLoading = () => {
@@ -47,10 +43,9 @@ const startLoading = () => {
 const stopLoading = () => {
   setLoadingState(false);
 
-  if (hasReachedMaxPokemonCount()) {
+  if (hasReachedMax()) {
     setLoadMoreButtonState(true);
     setLoadMoreButtonText("All Pokémon loaded");
-
     return;
   }
 
@@ -58,30 +53,26 @@ const stopLoading = () => {
   setLoadMoreButtonText("Load More");
 };
 
+const saveBatchToState = (pokemonDetailsList) => {
+  pokemonDetailsList.forEach((pokemon) => {
+    addPokemonToState(pokemon);
+  });
+};
+
 const loadPokemonBatch = async () => {
-  if (state.isLoading || hasReachedMaxPokemonCount()) {
+  if (state.isLoading || hasReachedMax()) {
     return;
   }
 
   startLoading();
 
   try {
-    const currentBatchSize = getCurrentBatchSize();
+    const batchSize = getCurrentBatchSize();
+    const listData = await fetchPokemonList(batchSize, state.offset);
+    const detailsList = await fetchBatchDetails(listData.results);
 
-    const pokemonListData = await fetchPokemonList(
-      currentBatchSize,
-      state.offset,
-    );
-
-    const pokemonDetailsList = await fetchPokemonBatchDetails(
-      pokemonListData.results,
-    );
-
-    pokemonDetailsList.forEach((pokemon) => {
-      addPokemonToState(pokemon);
-    });
-
-    renderPokemonCards(pokemonDetailsList);
+    saveBatchToState(detailsList);
+    renderPokemonCards(detailsList);
     increaseOffset();
   } catch (error) {
     console.error(error);
@@ -93,13 +84,10 @@ const loadPokemonBatch = async () => {
 
 const loadAllPokemonInBackground = async () => {
   try {
-    const pokemonListData = await fetchPokemonList(MAX_POKEMON_COUNT, 0);
+    const listData = await fetchPokemonList(MAX_POKEMON_COUNT, 0);
+    const detailsList = await fetchBatchDetails(listData.results);
 
-    const pokemonDetailsList = await fetchPokemonBatchDetails(
-      pokemonListData.results,
-    );
-
-    addAllPokemonToState(pokemonDetailsList);
+    addAllPokemonToState(detailsList);
   } catch (error) {
     console.error("Failed to load all Pokémon for search:", error);
   }
